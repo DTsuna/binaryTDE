@@ -1,1 +1,2 @@
 # binaryTDE
+This repository is a light curve model of tidal disruption of a stellar companion by a newborn compact object from a (Type Ibc) supernova. These can be a possible explanation for extremely bright stellar transients, such as (super-)luminous SNe and luminous fast blue optical transients. For details please see our paper (https://ui.adsabs.harvard.edu/abs/2025arXiv250103316T/abstract; ApJ accepted).
