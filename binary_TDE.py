@@ -1,12 +1,13 @@
 #
 # Light curve model of newborn compact object (CO) tidally disrupting a main-sequence companion
+# Reference: D. Tsuna, W. Lu (arXiv:2501.03316; ApJ accepted)
 #
 
 import numpy as np
 import math
 import itertools
 
-import constants as con
+import constants as con # physical constants
 
 #
 # key params of the light curve model
@@ -56,7 +57,7 @@ def L_Ni56(time, M_Ni, M_ej, R_ej):
 	return Lgamma + Lpos
 
 
-# luminosity of shocked wind by gas cooling
+# luminosity of shocked wind by gas cooling (Appendix of Tsuna & Lu 25)
 def wind_luminosity(t_dyn, R_neb, v_array, dMdotdv, rhosh_w, Tsh_w, U_rad):
 	# free-free cooling time
 	t_cool_ff = rhosh_w*con.k_B*Tsh_w/(gamma-1)/mu/con.m_p/Lambda_ff(Tsh_w)/(X_H*rhosh_w/con.m_p)**2
@@ -152,7 +153,7 @@ def evolve_ejecta(Mej, MCO, MNi, Mstar, Eexp, kap_bol, t_TDE, R_disk_in, visc_pa
 		if (t > t_TDE and Mdisk>0.0): 
 			# disk has formed. calculate disk wind
 			Mdot = Mdisk/tvisc
-			F_w = (p_BB)/(p_BB+0.5) # AM lever arm. Shen & Matzner 14
+			F_w = (p_BB)/(p_BB+0.5) # AM lever arm (Shen & Matzner 14)
 
 			# critical radius
 			R_crit = con.G*MCO / (v_neb)**2 
@@ -278,11 +279,13 @@ elif CO == 'NS':
 else:
 	raise ValueError('undefined compact object')
 
+# varying ejecta models...
 for (Mej, Eexp, MNi) in Mej_Eexp_MNi_array:
 	Mej *= con.Msun # Msun -> g
 	MNi *= con.Msun # Msun -> g
 	print("SN Ejecta model: Mej=%d Msun, Eej=%s erg" % (int(Mej/con.Msun), str(Eexp).replace('+','')))
-	# case for wind
+
+	# varying other params...
 	for (Mstar,t_TDE,visc_param) in itertools.product(Mstar_array, t_TDE_array, visc_param_array):
 		t_TDE *= 86400. # day -> sec
 		Mstar *= con.Msun # Msun -> g
