@@ -3,4 +3,4 @@ This repository is a light curve model of tidal disruption of a stellar companio
 
 The main script is "binary_TDE.py", with input parameters in the beginning of the script. The code outputs the time-dependent parameters for the one-zone model, with calculations taking ~1 minute per each parameter set. 
 
-The definitions of each column in the output file is shown as a header. The first three columns are epoch [day], luminosity [erg/s], and effective temperature [K], which can be used to plot an approximate light curve.
+The definitions of each column in the output file is shown as a header. The first three columns are time from SN [day], luminosity [erg/s], and effective temperature [K], which can be used to plot an approximate light curve.
